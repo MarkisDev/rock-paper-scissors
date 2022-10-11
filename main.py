@@ -15,3 +15,6 @@ class RPS:
 
     def writeToRepo(self, filepath, message, content, sha):
         self.repo.update_file(filepath, message, content, sha)
+
+    def addComment(self, message):
+        self.issue.create_comment(message)
