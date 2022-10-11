@@ -9,3 +9,6 @@ class RPS:
         self.issue = self.repo.get_issue(issueNumber)
         self.moves = ['rock', 'paper', 'scissor']
         self.fileName = 'README.md'
+
+    def fetchFileFromRepo(self, filepath):
+        return self.repo.get_contents(filepath)
