@@ -12,3 +12,6 @@ class RPS:
 
     def fetchFileFromRepo(self, filepath):
         return self.repo.get_contents(filepath)
+
+    def writeToRepo(self, filepath, message, content, sha):
+        self.repo.update_file(filepath, message, content, sha)
