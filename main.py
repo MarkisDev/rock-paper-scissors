@@ -18,3 +18,6 @@ class RPS:
 
     def addComment(self, message):
         self.issue.create_comment(message)
+
+    def computerMove(self):
+        self.computerMove = random.choice(self.moves)
