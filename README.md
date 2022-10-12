@@ -6,5 +6,5 @@
     <a href="https://github.com/MarkisDev/rock-paper-scissors/issues/new?title=rps|paper">:hand:</a>
     <a href="https://github.com/MarkisDev/rock-paper-scissors/issues/new?title=rps|scissor">:scissors:</a>
   </h3>
-  <h4>Previous game was a draw :eyes:</h4>
+  <h4>Previous winner was computer :robot:</h4>
 </div>
