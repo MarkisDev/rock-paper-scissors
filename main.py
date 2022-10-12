@@ -1,4 +1,5 @@
 import random
+import os
 from github import Github
 from dominate.tags import *
 
@@ -75,3 +76,9 @@ class RPS:
             else:
                 h4(f"Previous game was a draw :eyes:")
         return outer.render()
+
+
+if __name__ == '__main__':
+    run = RPS(os.environ['TOKEN'], int(
+        os.environ['ISSUE_NUMBER']), os.environ['REPO'])
+    run.playMove()
