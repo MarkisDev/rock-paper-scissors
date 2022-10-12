@@ -15,7 +15,7 @@ class RPS:
         fileData = self.fetchFileFromRepo(self.filePath)
         userName = self.issue.user.login
         move = self.issue.title.lower().split('|')
-        if (len(move) > 1) or move[1] not in self.moves:
+        if (len(move) > 1) and move[1] in self.moves:
             move = move[1]
             self.computerMove = self.computerMove()
             if (move == 'rock'):
