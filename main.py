@@ -63,10 +63,11 @@ class RPS:
 
     def genFileData(self, userName, result):
         outer = div()
+        repo = self.repo.full_name
         with outer:
             h1("Rock Paper Scissors Game!")
             p("Click on one of the below actions to play your move:")
-            h3(a(":fist:", href=f'https://github.com/{self.repo}/issues/new?title=rps|rock'), a(":hand:", href=f'https://github.com/{self.repo}/issues/new?title=rps|paper'), a(":scissors:", href=f'https://github.com/{self.repo}/issues/new?title=rps|scissor'))
+            h3(a(":fist:", href=f'https://github.com/{repo}/issues/new?title=rps|rock'), a(":hand:", href=f'https://github.com/{repo}/issues/new?title=rps|paper'), a(":scissors:", href=f'https://github.com/{repo}/issues/new?title=rps|scissor'))
             if result == True:
                 h4(f"Previous winner was @{userName} :tada:")
             elif result == False:
