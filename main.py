@@ -19,15 +19,10 @@ class RPS:
         if (len(move) > 1) and move[1] in self.moves:
             move = move[1]
             self.computerMove = self.computerMove()
-            if (move == 'rock'):
-                action = ":fist:"
-            elif (move == 'paper'):
-                action = ":hand:"
-            else:
-                action = ":scissors:"
             if move in self.moves:
                 result = self.didUserWin(move)
                 newFileData = self.genFileData(userName, result)
+                action = self.getEmoji(move)
                 if result == True:
                     self.addComment('Congratulations! You won! :tada:')
                     self.writeToRepo(self.filePath, f"@{userName} won with {action}", newFileData, fileData.sha)
@@ -35,12 +30,21 @@ class RPS:
                     self.addComment('Oops! This was a draw! :eyes:')
                     self.writeToRepo(self.filePath, f"@{userName} played {action}", newFileData, fileData.sha)
                 elif result == False:
+                    action = self.getEmoji(self.computerMove)
                     self.addComment(
                         f'Uh-Oh! You lost! :eyes:\n Computer played {self.computerMove}')
                     self.writeToRepo(self.filePath, f":robot: won with {action}", newFileData, fileData.sha)
         else:
             self.addComment('You played an invalid move! :eyes:')
         self.issue.edit(state="closed")
+
+    def getEmoji(self, move):
+        if (move == 'rock'):
+            return":fist:"
+        elif (move == 'paper'):
+            return":hand:"
+        else:
+            return ":scissors:"
 
     def fetchFileFromRepo(self, filepath):
         return self.repo.get_contents(filepath)
