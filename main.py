@@ -29,17 +29,17 @@ class RPS:
                 newFileData = self.genFileData(userName, result)
                 if result == True:
                     self.addComment('Congratulations! You won! :tada:')
-                    self.writeToRepo(self.filePath, f"@{userName} won with {action}!", newFileData, fileData.sha)
+                    self.writeToRepo(self.filePath, f"@{userName} won with {action}", newFileData, fileData.sha)
                 elif result == None:
                     self.addComment('Oops! This was a draw! :eyes:')
-                    self.writeToRepo(self.filePath, f"@{userName} played {action}!", newFileData, fileData.sha)
+                    self.writeToRepo(self.filePath, f"@{userName} played {action}", newFileData, fileData.sha)
                 elif result == False:
                     self.addComment(
                         f'Uh-Oh! You lost! :eyes:\n Computer played {self.computerMove}')
-                    self.writeToRepo(self.filePath, f":robot: won with {action}!", newFileData, fileData.sha)
+                    self.writeToRepo(self.filePath, f":robot: won with {action}", newFileData, fileData.sha)
         else:
             self.addComment('You played an invalid move! :eyes:')
-            self.issue.edit(state="closed")
+        self.issue.edit(state="closed")
 
     def fetchFileFromRepo(self, filepath):
         return self.repo.get_contents(filepath)
@@ -68,9 +68,9 @@ class RPS:
             p("Click on one of the below actions to play your move:")
             h3(":first: :hand: :scissors:")
             if result == True:
-                h4(f"Previous winner was @{userName} :tada:!")
+                h4(f"Previous winner was @{userName} :tada:")
             elif result == False:
-                h4(f"Previous winner was computer :robot:!")
+                h4(f"Previous winner was computer :robot:")
             else:
-                h4(f"Previous game was a draw :eyes:!")
+                h4(f"Previous game was a draw :eyes:")
         return outer.render()
