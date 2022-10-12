@@ -10,6 +10,33 @@ class RPS:
         self.moves = ['rock', 'paper', 'scissor']
         self.filePath = 'README.md'
 
+    def playMove(self):
+        fileData = self.fetchFileFromRepo(self.filePath)
+        userName = self.issue.user.login
+        move = self.issue.title.lower().split('|')
+        if (len(move) > 1) or move[1] not in self.moves:
+            move = move[1]
+            if (move == 'rock'):
+                action = ":first:"
+            elif (move == 'paper'):
+                action = ":hand:"
+            else:
+                action = ":scissors:"
+            if move in self.moves:
+                result = self.didUserWin(move)
+                newFileData = self.genFileData(userName, result)
+            if result == True:
+                self.addComment('Congratulations! You won! :tada:')
+                self.writeToRepo(self.filePath, f"@{userName} won with {action}!", newFileData, fileData.sha)
+            elif result == None:
+                self.addComment('Oops! This was a draw! :eyes:')
+                self.writeToRepo(self.filePath, f"@{userName} played {action}!", newFileData, fileData.sha)
+            elif result == False:
+                self.addComment('Uh=Oh! You lost! :eyes:')
+                self.writeToRepo(self.filePath, f":robot: won with {action}!", newFileData, fileData.sha)
+        else:
+            self.addComment('You played an invalid move! :eyes:')
+
     def fetchFileFromRepo(self, filepath):
         return self.repo.get_contents(filepath)
 
