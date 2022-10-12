@@ -29,3 +29,17 @@ class RPS:
             return None
         else:
             return False
+
+    def genFileData(self, userName, result):
+        outer = div()
+        with outer:
+            h1("Rock Paper Scissors Game!")
+            p("Click on one of the below actions to play your move:")
+            h3(":first: :hand: :scissors:")
+            if result == True:
+                h4(f"Previous winner was @{userName} :tada:!")
+            elif result == False:
+                h4(f"Previous winner was computer :robot:!")
+            else:
+                h4(f"Previous game was a draw :eyes:!")
+        return outer.render()
