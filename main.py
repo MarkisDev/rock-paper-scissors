@@ -8,7 +8,7 @@ class RPS:
         self.repo = Github(token).get_repo(repo)
         self.issue = self.repo.get_issue(issueNumber)
         self.moves = ['rock', 'paper', 'scissor']
-        self.fileName = 'README.md'
+        self.filePath = 'README.md'
 
     def fetchFileFromRepo(self, filepath):
         return self.repo.get_contents(filepath)
@@ -21,3 +21,11 @@ class RPS:
 
     def computerMove(self):
         self.computerMove = random.choice(self.moves)
+
+    def didUserWin(self, userMove):
+        if ((userMove == 'rock' and self.computerMove == 'scissor') or (userMove == 'scissor' and self.computerMove == 'paper') or (userMove == 'paper' and self.computerMove == 'rock')):
+            return True
+        elif (userMove == self.computerMove()):
+            return None
+        else:
+            return False
