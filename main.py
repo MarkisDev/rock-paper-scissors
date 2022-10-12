@@ -1,5 +1,6 @@
 import random
 from github import Github
+from dominate.tags import *
 
 
 class RPS:
@@ -16,8 +17,9 @@ class RPS:
         move = self.issue.title.lower().split('|')
         if (len(move) > 1) or move[1] not in self.moves:
             move = move[1]
+            self.computerMove = self.computerMove()
             if (move == 'rock'):
-                action = ":first:"
+                action = ":fist:"
             elif (move == 'paper'):
                 action = ":hand:"
             else:
@@ -25,17 +27,19 @@ class RPS:
             if move in self.moves:
                 result = self.didUserWin(move)
                 newFileData = self.genFileData(userName, result)
-            if result == True:
-                self.addComment('Congratulations! You won! :tada:')
-                self.writeToRepo(self.filePath, f"@{userName} won with {action}!", newFileData, fileData.sha)
-            elif result == None:
-                self.addComment('Oops! This was a draw! :eyes:')
-                self.writeToRepo(self.filePath, f"@{userName} played {action}!", newFileData, fileData.sha)
-            elif result == False:
-                self.addComment('Uh=Oh! You lost! :eyes:')
-                self.writeToRepo(self.filePath, f":robot: won with {action}!", newFileData, fileData.sha)
+                if result == True:
+                    self.addComment('Congratulations! You won! :tada:')
+                    self.writeToRepo(self.filePath, f"@{userName} won with {action}!", newFileData, fileData.sha)
+                elif result == None:
+                    self.addComment('Oops! This was a draw! :eyes:')
+                    self.writeToRepo(self.filePath, f"@{userName} played {action}!", newFileData, fileData.sha)
+                elif result == False:
+                    self.addComment(
+                        f'Uh-Oh! You lost! :eyes:\n Computer played {self.computerMove}')
+                    self.writeToRepo(self.filePath, f":robot: won with {action}!", newFileData, fileData.sha)
         else:
             self.addComment('You played an invalid move! :eyes:')
+            self.issue.edit(state="closed")
 
     def fetchFileFromRepo(self, filepath):
         return self.repo.get_contents(filepath)
@@ -47,7 +51,7 @@ class RPS:
         self.issue.create_comment(message)
 
     def computerMove(self):
-        self.computerMove = random.choice(self.moves)
+        return random.choice(self.moves)
 
     def didUserWin(self, userMove):
         if ((userMove == 'rock' and self.computerMove == 'scissor') or (userMove == 'scissor' and self.computerMove == 'paper') or (userMove == 'paper' and self.computerMove == 'rock')):
