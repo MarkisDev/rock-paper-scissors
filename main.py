@@ -71,6 +71,10 @@ class RPS:
         repo = self.repo.full_name
         with outer:
             h1("Rock Paper Scissors Game!")
+            with h4:
+                text("Click ")
+                a("here", href="https://rijuth.hashnode.dev/develop-your-own-github-readme-game")
+                text("to read my article on building your own game!)
             p("Click on one of the below actions to play your move:")
             h3(a(":punch:", href=f'https://github.com/{repo}/issues/new?title=rps|rock'), a(":hand:", href=f'https://github.com/{repo}/issues/new?title=rps|paper'), a(":scissors:", href=f'https://github.com/{repo}/issues/new?title=rps|scissor'))
             if result == True:
