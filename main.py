@@ -2,7 +2,7 @@ import random
 import os
 from github import Github
 from dominate.tags import *
-
+from dominate.util import text
 
 class RPS:
     def __init__(self, token, issueNumber, repo):
